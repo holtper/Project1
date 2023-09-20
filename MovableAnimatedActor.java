@@ -74,7 +74,7 @@ public class MovableAnimatedActor extends AnimatedActor {
             direction = "right";
             setLocation(x + 1, y);
             
-            if (isTouching(Block.class))
+            if (isTouching(Pipe.class))
                 
                 setLocation(x - 1, y);
         }
@@ -84,7 +84,7 @@ public class MovableAnimatedActor extends AnimatedActor {
             direction = "left";
             setLocation(x - 1, y);
             
-             if (isTouching(Block.class))
+             if (isTouching(Pipe.class))
                 
                 setLocation(x + 1, y);
         }
@@ -100,14 +100,14 @@ public class MovableAnimatedActor extends AnimatedActor {
                 newAction = "idleLeft";
         }
         
-        if (isFalling()) {
+        //if (isFalling()) {
             
-            if (!direction.equals(null) && direction.equals("right"))
-                newAction = "fallRight";
+           // if (!direction.equals(null) && direction.equals("right"))
+              //  newAction = "fallRight";
                 
-            if (!direction.equals(null) && direction.equals("left"))
-                newAction = "fallLeft";
-        }
+           // if (!direction.equals(null) && direction.equals("left"))
+              //  newAction = "fallLeft";
+       // }
         
         // sets animation and currentAction
         if (!(newAction == (null)) && !newAction.equals(currentAction)) {

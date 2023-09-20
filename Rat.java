@@ -11,7 +11,7 @@ public class Rat extends MovableAnimatedActor
     
     public Rat() 
     {
-        String[] walkFiles = new String[10];
+        String[] walkFiles = new String[3];
         for (int i = 0; i < walkFiles.length; i++) 
             walkFiles[i] = new String("sprites/rat/Run(" + (i) + ").png");
         walkRight = new Animation(50, walkFiles);

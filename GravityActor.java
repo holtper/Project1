@@ -5,14 +5,14 @@ public class GravityActor extends Actor{
     
     public Boolean isBlocked() {
         
-        return (isTouching(Block.class));
+        return (isTouching(Pipe.class));
     }
     
     public Boolean isFalling() {
         
         boolean ret;
         setLocation(getX(), getY() + 1);
-        ret = isTouching(Block.class);
+        ret = isTouching(Pipe.class);
         setLocation(getX(), getY() - 1);
         return !ret;
     }
