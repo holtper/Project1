@@ -10,7 +10,6 @@ public class Debug extends World {
     public Debug() 
     {
     	setBackground("sprites/placeholder.png");
-    	Mayflower.showBounds(true);
     	
     	rateo = new Rat();
     	addObject(rateo, 400, 100);

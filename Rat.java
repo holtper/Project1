@@ -35,19 +35,12 @@ public class Rat extends MovableAnimatedActor
         //fallLeft = new Animation(50, fallFiles);
         //fallLeft.mirrorHorizontally();
         
-        //walkRight.scale(100, 87);
-        //walkLeft.scale(100, 87);
-        //idleRight.scale(100, 87);
-        //idleLeft.scale(100, 87);
+        walkRight.scale(32, 32);
+        walkLeft.scale(32, 32);
+        idleRight.scale(32, 32);
+        idleLeft.scale(32, 32);
         //fallRight.scale(100, 87);
         //fallLeft.scale(100, 87);
-        
-        //walkRight.setBounds(18, 5, 54, 80);
-        //walkLeft.setBounds(28, 5, 54, 80);
-        //idleRight.setBounds(18, 5, 54, 80);
-        //idleLeft.setBounds(28, 5, 54, 80);
-       // fallRight.setBounds(18, 5, 54, 80);
-        //fallLeft.setBounds(28, 5, 54, 80);
         
         setWalkRightAnimation(walkRight);
         setWalkLeftAnimation(walkLeft);

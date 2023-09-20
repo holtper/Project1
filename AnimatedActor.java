@@ -7,7 +7,7 @@ public class AnimatedActor extends GravityActor {
     
     public AnimatedActor() {
         
-        animationTimer = new Timer(50000000);
+        animationTimer = new Timer(100000000);
     }
     
     public void act() {
