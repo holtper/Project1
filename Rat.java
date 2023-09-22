@@ -6,8 +6,10 @@ public class Rat extends MovableAnimatedActor
     private Animation walkLeft;
     private Animation idleRight;
     private Animation idleLeft;
-    private Animation fallRight;
-    private Animation fallLeft;
+    private Animation jumpRight;
+    private Animation jumpLeft;
+    private int score;
+    private int lives;
     
     public Rat() 
     {
@@ -51,6 +53,34 @@ public class Rat extends MovableAnimatedActor
         
         setAnimation(idleRight);
     }
+    
+    public void increaseScore(int amt) {
+    
+        score += amt;
+    }
+    
+    public void decreaseLives(int amt) {
+        
+        lives -= amt;
+    }
+    
+    public int getScore() {
+    
+        return score;
+    }
+    
+    public int getLives() {
+    
+        return lives;
+    }
+    
+    private void updateText() {
+     
+        World w = getWorld();
+        w.removeText(10, 30);
+        w.showText("Score: " + score + " Lives: " + lives, 10, 30, Color.BLACK);
+    }
+    
     public void act()
     {
         super.act();

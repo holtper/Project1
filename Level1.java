@@ -4,8 +4,7 @@ import mayflower.*;
 public class Level1 extends World {
 
     private Rat rateo;
-    private Pipe block1;
-    private Pipe block2;
+    private String tiles;
     
     public Level1() 
     {
@@ -13,6 +12,7 @@ public class Level1 extends World {
         
         rateo = new Rat();
         addObject(rateo, 200, 460);
+        
         
         for (int i = 64; i < 704; i += 32)
             addObject(new Pipe(), i, 500);
@@ -27,6 +27,44 @@ public class Level1 extends World {
             addObject(new Pipe(), i, 200);
             
         
+    }
+    
+    public void buildWorld(String[][] arr) {
+        
+        for (int r = 0; r < arr.length; r++)
+            
+            for (int c = 0; c < arr[r].length; c++)
+                
+                arr[r][c] = new String();
+                
+        
+        for (int i = 0; i < arr[5].length; i++)
+            
+            arr[5][i] = "floor";
+            
+            
+        for (int r = 0; r < arr.length; r++)
+            
+            for (int c = 0; c < arr[r].length; c++)
+                
+                if (arr[r][c].equals("ground"))
+                    
+                    addObject(new Pipe(), c * 100, r * 100 - 28);
+    }
+    
+    public void addRandomObjects(String[][] arr) { 
+        
+        Boolean added = false;
+        
+        for (int r = 0; r < arr.length - 1; r++)
+        
+            for (int c = 0; c < arr[r].length; c++)
+            
+                if (Math.random() * arr.length < 3 && arr[r][c].equals(new String())) {
+                    
+                    addObject(new Cheese(), c * 100, r * 100);
+                    arr[r][c] = "cheese";
+                }
     }
     
     public void act()
