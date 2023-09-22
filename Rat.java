@@ -6,10 +6,9 @@ public class Rat extends MovableAnimatedActor
     private Animation walkLeft;
     private Animation idleRight;
     private Animation idleLeft;
-    private Animation jumpRight;
-    private Animation jumpLeft;
-    private int score;
-    private int lives;
+    private Animation fallRight;
+    private Animation fallLeft;
+    private Animation jump;
     
     public Rat() 
     {
@@ -22,6 +21,11 @@ public class Rat extends MovableAnimatedActor
         for (int i = 0; i < idleFiles.length; i++) 
             idleFiles[i] = new String("sprites/rat/Idle(" + (i) + ").png");
         idleRight = new Animation(50, idleFiles);
+        
+        String[] jumpFiles = new String[7];
+        for (int i = 0; i < jumpFiles.length; i++) 
+            jumpFiles[i] = new String("sprites/rat/Jump(" + (i) + ").png");
+        jump = new Animation(50, jumpFiles);
         
         //String[] fallFiles = new String[7];
         //for (int i = 0; i < fallFiles.length; i++) 
@@ -41,6 +45,7 @@ public class Rat extends MovableAnimatedActor
         walkLeft.scale(32, 32);
         idleRight.scale(32, 32);
         idleLeft.scale(32, 32);
+        jump.scale(32,32);
         //fallRight.scale(100, 87);
         //fallLeft.scale(100, 87);
         
@@ -48,39 +53,12 @@ public class Rat extends MovableAnimatedActor
         setWalkLeftAnimation(walkLeft);
         setIdleRightAnimation(idleRight);
         setIdleLeftAnimation(idleLeft);
+        setJumpAnimation(jump);
         //setFallRightAnimation(fallRight);
         //setFallLeftAnimation(fallLeft);
         
         setAnimation(idleRight);
     }
-    
-    public void increaseScore(int amt) {
-    
-        score += amt;
-    }
-    
-    public void decreaseLives(int amt) {
-        
-        lives -= amt;
-    }
-    
-    public int getScore() {
-    
-        return score;
-    }
-    
-    public int getLives() {
-    
-        return lives;
-    }
-    
-    private void updateText() {
-     
-        World w = getWorld();
-        w.removeText(10, 30);
-        w.showText("Score: " + score + " Lives: " + lives, 10, 30, Color.BLACK);
-    }
-    
     public void act()
     {
         super.act();
