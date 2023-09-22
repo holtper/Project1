@@ -8,15 +8,14 @@ public class MovableAnimatedActor extends AnimatedActor {
     private Animation idleLeft;
     private Animation fallRight;
     private Animation fallLeft;
+    private Animation jump;
     private String currentAction;
     private String direction;
-    private Animation jump;
     
     public MovableAnimatedActor() {
         
         walkRight = null;
         idleRight = null;
-        jump = null;
         currentAction = null;
         direction = "right";
     }
@@ -57,8 +56,10 @@ public class MovableAnimatedActor extends AnimatedActor {
     }
     
     public void setJumpAnimation(Animation ani){
+        
         jump = ani;
     }
+    
     public void act() {
        
         super.act();
@@ -72,16 +73,22 @@ public class MovableAnimatedActor extends AnimatedActor {
         
         if (currentAction == (null))
             newAction = "idleRight";
-         if(Mayflower.isKeyDown(Keyboard.KEY_UP)) {
+            
+        if(Mayflower.isKeyDown(Keyboard.KEY_UP)) {
+            
             newAction = "jump";
-            setLocation(x, y - 5);
+            setLocation(x, y - 2);
+            
             if(direction == "right"){
+                
                 newAction = "jump";
             }
                 if(direction=="left"){
+                    
                 newAction = "jump";
             }
         }
+        
         if (Mayflower.isKeyDown(Keyboard.KEY_RIGHT) && x + w < 800) {
             
             newAction = "walkRight";
@@ -126,7 +133,10 @@ public class MovableAnimatedActor extends AnimatedActor {
         // sets animation and currentAction
         if (!(newAction == (null)) && !newAction.equals(currentAction)) {
             
-            if (newAction.equals("idleRight"))
+            if (newAction.equals("jump"))
+                setAnimation(jump);
+                
+            else if (newAction.equals("idleRight"))
                 setAnimation(idleRight);
                 
             else if (newAction.equals("idleLeft"))
@@ -143,8 +153,6 @@ public class MovableAnimatedActor extends AnimatedActor {
                 
             else if (newAction.equals("fallLeft"))
                 setAnimation(fallLeft);
-            else if(newAction.equals("jump"))
-                setAnimation(jump);
                 
             currentAction = newAction;
         }

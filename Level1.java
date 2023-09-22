@@ -25,8 +25,6 @@ public class Level1 extends World {
             
         for (int i = 160; i < 608; i += 32)
             addObject(new Pipe(), i, 200);
-            
-        
     }
     
     public void buildWorld(String[][] arr) {
