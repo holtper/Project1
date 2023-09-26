@@ -3,7 +3,7 @@ import mayflower.*;
 public class Title extends World {
     
     public Title() {
-        setBackground("sprites/title.png");
+        setBackground("sprites/background/title.png");
         
     }
     

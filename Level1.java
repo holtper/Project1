@@ -13,33 +13,38 @@ public class Level1 extends World {
         rateo = new Rat();
         addObject(rateo, 200, 460);
         
-        
-        for (int i = 64; i < 704; i += 32)
-            addObject(new Pipe(), i, 500);
-            
-        for (int i = 96; i < 672; i += 32)
-            addObject(new Pipe(), i, 400);
-            
-        for (int i = 128; i < 640; i += 32)
-            addObject(new Pipe(), i, 300);  
-            
-        for (int i = 160; i < 608; i += 32)
-            addObject(new Pipe(), i, 200);
+        addPipes(4);
     }
     
-    public void buildWorld(String[][] arr) {
+    public boolean canWin() {
+        
+        return (rateo.getScore() >= 5 && rateo.getLives() > 0);
+    }
+    
+    public void addPipes(int layers) {
+        
+        for (int i = 0; i < layers; i++) {
+            
+            addObject(new PipeLeft(), 32 + (32 * i), ((layers - i) * 100) + 100);
+            for (int j = 64 + (i * 32); j < 704 - (i * 32); j += 32) 
+                
+                addObject(new Pipe(), j, ((layers - i) * 100) + 100);
+                
+            addObject(new PipeRight(), 704 - (32 * i), ((layers - i) * 100) + 100);
+        }
+    }
+    
+    public void addTiles(String[][] arr) {
         
         for (int r = 0; r < arr.length; r++)
             
             for (int c = 0; c < arr[r].length; c++)
                 
-                arr[r][c] = new String();
-                
+                arr[r][c] = new String();      
         
         for (int i = 0; i < arr[5].length; i++)
             
             arr[5][i] = "floor";
-            
             
         for (int r = 0; r < arr.length; r++)
             
@@ -66,7 +71,6 @@ public class Level1 extends World {
     }
     
     public void act()
-    {
-    }
+    {}
     
 }
