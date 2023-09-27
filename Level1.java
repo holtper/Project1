@@ -8,7 +8,7 @@ public class Level1 extends World {
     
     public Level1() 
     {
-        setBackground("sprites/background.png");
+        setBackground("sprites/background/level1back.png");
         
         rateo = new Rat();
         addObject(rateo, 200, 460);
