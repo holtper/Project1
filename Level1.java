@@ -9,11 +9,13 @@ public class Level1 extends World {
     public Level1() 
     {
         setBackground("sprites/background/level1back.png");
+        Mayflower.showBounds(true);
         
         rateo = new Rat();
         addObject(rateo, 200, 460);
         
         addPipes(4);
+        addObject(new WinPipe(), 200, 70);
     }
     
     public boolean canWin() {
