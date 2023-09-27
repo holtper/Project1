@@ -11,6 +11,7 @@ public class MovableAnimatedActor extends AnimatedActor {
     private Animation jump;
     private String currentAction;
     private String direction;
+    private int tempHeight = 0;
     
     public MovableAnimatedActor() {
         
@@ -71,13 +72,17 @@ public class MovableAnimatedActor extends AnimatedActor {
         int w = getWidth();
         int h = getHeight();
         
+        if (isTouching(Pipe.class))
+            tempHeight = 0;
+        
         if (currentAction == (null))
             newAction = "idleRight";
             
-        if(Mayflower.isKeyDown(Keyboard.KEY_UP)) {
-            
+        if(Mayflower.isKeyPressed(Keyboard.KEY_UP) && tempHeight == 0) {
+            tempHeight += 5;
+            setLocation(x, y - 35);
             newAction = "jump";
-            setLocation(x, y - 2);
+            
             
             if(direction == "right"){
                 
