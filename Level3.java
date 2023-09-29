@@ -1,11 +1,10 @@
 import mayflower.*;
 
-
-public class Level1 extends World {
+public class Level3 extends World {
 
     private Rat rateo;
     
-    public Level1() 
+    public Level3() 
     {
         setBackground("sprites/background/level1back.png");
         Mayflower.showBounds(false);
@@ -17,11 +16,12 @@ public class Level1 extends World {
         
         addPipes(4);
         addObject(new WinPipe(), 200, 50);
+        addObject(new Bug(), 300, 230);
         addObject(new Bug(), 400, 440);
         addRandomObjects(tiles);
-        showText("Points needed: 5", 10, 60, Color.WHITE);
+        showText("Points needed: 15", 10, 60, Color.WHITE);
         rateo = new Rat();
-        rateo.setLevel(1);
+        rateo.setLevel(3);
         addObject(rateo, 200, 440);
     }
     

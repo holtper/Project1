@@ -38,13 +38,25 @@ public class MovableAnimatedActor extends AnimatedActor {
         int h = getHeight();
         
         if (currentAction == (null))
-            newAction = "idleRight";
+            newAction = "idleRight"; 
             
-        if(Mayflower.isKeyPressed(Keyboard.KEY_UP) && !isFalling()) {
+        if(Mayflower.isKeyDown(Keyboard.KEY_UP) && isTouching(Ladder.class)) {
+            
+            setLocation(x, y - 2);
+            newAction = direction.equals("right") ? "jumpRight" : "jumpLeft";
+        }
+        
+        if(Mayflower.isKeyDown(Keyboard.KEY_DOWN) && !isTouching(Ladder.class)) {
+            
+            setLocation(x, y + 2);
+            newAction = direction.equals("right") ? "jumpRight" : "jumpLeft";
+        }
+        
+        else if(Mayflower.isKeyPressed(Keyboard.KEY_UP) && !isFalling()) {
             
             setLocation(x, y + 1);
             if (isTouching(Pipe.class)) {
-                setLocation(x, y - 35);
+                setLocation(x, y - 32);
                 newAction = direction.equals("right") ? "jumpRight" : "jumpLeft";
             }
         }
@@ -73,6 +85,7 @@ public class MovableAnimatedActor extends AnimatedActor {
         
         else {
             
+            
             newAction = "idle";
             
             if (!direction.equals(null) && direction.equals("right"))
@@ -84,10 +97,10 @@ public class MovableAnimatedActor extends AnimatedActor {
 
         if (!(newAction == (null)) && !newAction.equals(currentAction)) {
             
-            if (newAction.equals("jumpRight"))
+            if (direction.equals("right") && isFalling())
                 setAnimation(jumpRight);
                 
-            else if (newAction.equals("jumpLeft"))
+            else if (direction.equals("left") && isFalling())
                 setAnimation(jumpLeft);
                 
             else if (newAction.equals("idleRight"))

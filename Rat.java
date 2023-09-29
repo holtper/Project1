@@ -10,6 +10,7 @@ public class Rat extends MovableAnimatedActor
     private Animation jumpLeft;
     private int score;
     private int lives;
+        private int level;
     
     public Rat() 
     {
@@ -53,11 +54,13 @@ public class Rat extends MovableAnimatedActor
         setIdleRightAnimation(idleRight);
         setIdleLeftAnimation(idleLeft);
         setJumpRightAnimation(jumpRight);
-        setJumpLeftAnimation(jumpRight);
+        setJumpLeftAnimation(jumpLeft);
         //setFallRightAnimation(fallRight);
         //setFallLeftAnimation(fallLeft);
         
         setAnimation(idleRight);
+        
+        lives = 3;
     }
     
     public void increaseScore(int amt) {
@@ -80,16 +83,43 @@ public class Rat extends MovableAnimatedActor
         return lives;
     }
     
+        public void setLevel(int l) {
+    
+        level = l;
+    }
+    
     private void updateText() {
      
         World w = getWorld();
         w.removeText(10, 30);
-        w.showText("Score: " + score + " Lives: " + lives, 10, 30, Color.BLACK);
+        w.showText("Score: " + score + " Lives: " + lives, 10, 30, Color.WHITE);
     }
     
     public void act()
     {
         super.act();
         updateText();
+        if (lives <= 0) {
+         
+            Mayflower.setWorld(new GameOver());
+        }
+        
+        if (isTouching(WinPipe.class))
+        {
+            if (level == 1 && score >= 5) {
+                
+                Mayflower.setWorld(new Level2());
+            }
+            
+            if (level == 2 && score >= 10) {
+                
+                Mayflower.setWorld(new Level3());
+            }
+            
+            if (level == 3 && score >= 15) {
+                
+                Mayflower.setWorld(new GameWin());
+            }
+        }
     }
 }

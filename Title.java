@@ -9,7 +9,7 @@ public class Title extends World {
     
     public void act() {
     
-        if (Mayflower.isKeyDown(Keyboard.KEY_ENTER)) {
+        if (Mayflower.isKeyPressed(Keyboard.KEY_ENTER)) {
             
             Mayflower.setWorld(new Level1());
         }

@@ -44,7 +44,7 @@ public class Bug extends AnimatedActor {
             
             Object obj = getOneIntersectingObject(Rat.class);
             Rat r = (Rat) obj;
-            r.setLocation(200, 465);
+            r.setLocation(200, 440);
             r.decreaseLives(1);
         }
     }

@@ -4,7 +4,7 @@ public class Cheese extends Actor
     
     public Cheese() {
         
-        setImage("sprites/cheese.png");
+        setImage("sprites/tile/cheese.png");
     }
     
     public void act() {
