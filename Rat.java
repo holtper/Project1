@@ -6,8 +6,8 @@ public class Rat extends MovableAnimatedActor
     private Animation walkLeft;
     private Animation idleRight;
     private Animation idleLeft;
-    private Animation jump;
-    //private Animation jumpLeft;
+    private Animation jumpRight;
+    private Animation jumpLeft;
     private int score;
     private int lives;
     
@@ -26,7 +26,7 @@ public class Rat extends MovableAnimatedActor
         String[] jumpFiles = new String[7];
         for (int i = 0; i < jumpFiles.length; i++) 
             jumpFiles[i] = new String("sprites/rat/Jump(" + (i) + ").png");
-        jump = new Animation(50, jumpFiles);
+        jumpRight = new Animation(50, jumpFiles);
         
         //String[] fallFiles = new String[7];
         //for (int i = 0; i < fallFiles.length; i++) 
@@ -39,22 +39,21 @@ public class Rat extends MovableAnimatedActor
         idleLeft = new Animation(50, idleFiles);
         idleLeft.mirrorHorizontally();
         
-        //fallLeft = new Animation(50, fallFiles);
-        //fallLeft.mirrorHorizontally();
+        jumpLeft = new Animation(50, jumpFiles);
+        jumpLeft.mirrorHorizontally();
         
         walkRight.scale(32, 32);
         walkLeft.scale(32, 32);
         idleRight.scale(32, 32);
         idleLeft.scale(32, 32);
-        jump.scale(32,32);
-        //fallRight.scale(100, 87);
-        //fallLeft.scale(100, 87);
-        
+        jumpRight.scale(32,32);
+        jumpLeft.scale(32,32);
         setWalkRightAnimation(walkRight);
         setWalkLeftAnimation(walkLeft);
         setIdleRightAnimation(idleRight);
         setIdleLeftAnimation(idleLeft);
-        setJumpAnimation(jump);
+        setJumpRightAnimation(jumpRight);
+        setJumpLeftAnimation(jumpRight);
         //setFallRightAnimation(fallRight);
         //setFallLeftAnimation(fallLeft);
         
@@ -91,5 +90,6 @@ public class Rat extends MovableAnimatedActor
     public void act()
     {
         super.act();
+        updateText();
     }
 }

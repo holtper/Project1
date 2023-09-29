@@ -12,10 +12,12 @@ public class Level1 extends World {
         Mayflower.showBounds(true);
         
         rateo = new Rat();
-        addObject(rateo, 200, 460);
+        addObject(rateo, 200, 465);
         
         addPipes(4);
         addObject(new WinPipe(), 200, 70);
+        addObject(new Bug(), 300, 250);
+        addObject(new Bug(), 400, 460);
     }
     
     public boolean canWin() {
