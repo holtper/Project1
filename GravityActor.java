@@ -8,6 +8,7 @@ public class GravityActor extends Actor{
         return (isTouching(Pipe.class));
     }
     
+    // checks to see if an Gravity actor is continuously getting lower on the screen
     public Boolean isFalling() {
         
         boolean ret;
@@ -17,6 +18,7 @@ public class GravityActor extends Actor{
         return !ret;
     }
     
+    //prevents walking into walls from the side
     public void act() {
         
         setLocation(getX(), getY() + 1);

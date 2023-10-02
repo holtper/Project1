@@ -10,26 +10,28 @@ public class Level1 extends World {
         setBackground("sprites/background/level1back.png");
         Mayflower.showBounds(false);
         
+        // declares/instantiates the tiles array
         String[][] tiles = {new String[12], new String[14], new String[16], new String[18]}; 
         for (int i = 0; i < tiles.length; i++)
             for (int j = 0; j < tiles[i].length; j++)
                 tiles[i][j] = new String();
         
+                
+        // adds all level objects and interactables
         addPipes(4);
         addObject(new WinPipe(), 200, 50);
-        addObject(new Bug(), 400, 440);
         addRandomObjects(tiles);
+        addObject(new Bug(), 275, 344);
+        addObject(new Bug(), 400, 440);
         showText("Points needed: 5", 10, 60, Color.WHITE);
         rateo = new Rat();
         rateo.setLevel(1);
-        addObject(rateo, 200, 440);
+        addObject(rateo, 150, 448);
+        addObject(new Water(), 0, 536);
+        //Mayflower.playSound("sounds/level1theme.wav");
     }
-    
-    public boolean canWin() {
-        
-        return (rateo.getScore() >= 5 && rateo.getLives() > 0);
-    }
-    
+
+    //add layers of pipes in a pyramid shape based on a parameter
     public void addPipes(int layers) {
         
         for (int i = 0; i < layers; i++) {
@@ -43,6 +45,7 @@ public class Level1 extends World {
         }
     }
     
+    // add random cheeses and ladders, not overlapping and using a 2d string array
     public void addRandomObjects(String[][] arr) { 
         
         boolean ladderAdded = false;
@@ -54,9 +57,9 @@ public class Level1 extends World {
             
                 int j = (int) (Math.random() * arr[i].length);
                 if (Math.random() * 10 > 8 && arr[i][j].equals("")) {
-                    addObject(new Ladder(), (j * 32) + 96, (i * 96) + 100);
-                    addObject(new Ladder(), (j * 32) + 96, (i * 96) + 132);
-                    addObject(new Ladder(), (j * 32) + 96, (i * 96) + 164);
+                    addObject(new Ladder(), (j * 32) + (64 * (arr.length - i)), (i * 96) + 100);
+                    addObject(new Ladder(), (j * 32) + (64 * (arr.length - i)), (i * 96) + 132);
+                    addObject(new Ladder(), (j * 32) + (64 * (arr.length - i)), (i * 96) + 164);
                     arr[i][j] = "ladder";
                     ladderAdded = true;
                 }
@@ -65,10 +68,10 @@ public class Level1 extends World {
         
         for (int i = 0; i < arr.length; i++) {
 
-            for (int j = 0; j < arr[i].length; j ++) {
+            for (int j = 0; j < arr[i].length; j++) {
                 
                 if (Math.random() * 10 > 6 && arr[i][j].equals("")) {
-                    addObject(new Cheese(), (j * 32) + 96, (i * 96) + 150);
+                    addObject(new Cheese(), j * 32 + (64 * (arr.length - i)), (i * 96) + 140);
                     arr[i][j] = "cheese";
                 }
             }

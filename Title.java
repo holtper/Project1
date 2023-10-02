@@ -7,6 +7,7 @@ public class Title extends World {
         
     }
     
+    //checks for enter pressed, sets world to level 1
     public void act() {
     
         if (Mayflower.isKeyPressed(Keyboard.KEY_ENTER)) {

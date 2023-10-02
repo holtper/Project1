@@ -2,18 +2,13 @@ import mayflower.*;
 
 public class Rat extends MovableAnimatedActor
 {
-    private Animation walkRight;
-    private Animation walkLeft;
-    private Animation idleRight;
-    private Animation idleLeft;
-    private Animation jumpRight;
-    private Animation jumpLeft;
-    private int score;
-    private int lives;
-        private int level;
+    private Animation walkRight, walkLeft, idleRight, idleLeft; 
+    private Animation jumpRight, jumpLeft, climbRight, climbLeft;
+    private int score, lives, level;
     
     public Rat() 
     {
+        //creates animaiton loops
         String[] walkFiles = new String[3];
         for (int i = 0; i < walkFiles.length; i++) 
             walkFiles[i] = new String("sprites/rat/Run(" + (i) + ").png");
@@ -24,16 +19,17 @@ public class Rat extends MovableAnimatedActor
             idleFiles[i] = new String("sprites/rat/Idle(" + (i) + ").png");
         idleRight = new Animation(50, idleFiles);
         
-        String[] jumpFiles = new String[7];
+        String[] jumpFiles = new String[4];
         for (int i = 0; i < jumpFiles.length; i++) 
             jumpFiles[i] = new String("sprites/rat/Jump(" + (i) + ").png");
         jumpRight = new Animation(50, jumpFiles);
         
-        //String[] fallFiles = new String[7];
-        //for (int i = 0; i < fallFiles.length; i++) 
-          //  fallFiles[i] = new String("img/cat/Fall (" + (i + 1) + ").png");
-        //fallRight = new Animation(50, fallFiles);
+        String[] climbFiles = new String[2];
+        for (int i = 0; i < climbFiles.length; i++) 
+            climbFiles[i] = new String("sprites/rat/Climb(" + i + ").png");
+        climbRight = new Animation(50, climbFiles);
         
+        // mirrors existing loops to work both directions
         walkLeft = new Animation(50, walkFiles);
         walkLeft.mirrorHorizontally();
         
@@ -43,20 +39,28 @@ public class Rat extends MovableAnimatedActor
         jumpLeft = new Animation(50, jumpFiles);
         jumpLeft.mirrorHorizontally();
         
+        climbLeft = new Animation(50, climbFiles);
+        climbLeft.mirrorHorizontally();
+        
+        //scales animation loops to better fit the screen
         walkRight.scale(32, 32);
         walkLeft.scale(32, 32);
         idleRight.scale(32, 32);
         idleLeft.scale(32, 32);
         jumpRight.scale(32,32);
         jumpLeft.scale(32,32);
+        climbRight.scale(32, 32);
+        climbLeft.scale(32, 32);
+        
+        //sets the various animation loops to actual variables
         setWalkRightAnimation(walkRight);
         setWalkLeftAnimation(walkLeft);
         setIdleRightAnimation(idleRight);
         setIdleLeftAnimation(idleLeft);
         setJumpRightAnimation(jumpRight);
         setJumpLeftAnimation(jumpLeft);
-        //setFallRightAnimation(fallRight);
-        //setFallLeftAnimation(fallLeft);
+        setClimbRightAnimation(climbRight);
+        setClimbLeftAnimation(climbLeft);
         
         setAnimation(idleRight);
         
@@ -99,11 +103,14 @@ public class Rat extends MovableAnimatedActor
     {
         super.act();
         updateText();
+        
+        //shows game over screen if lives are 0 or less
         if (lives <= 0) {
          
             Mayflower.setWorld(new GameOver());
         }
         
+        //checks win conditions for each level
         if (isTouching(WinPipe.class))
         {
             if (level == 1 && score >= 5) {

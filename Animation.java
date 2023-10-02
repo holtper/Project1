@@ -5,6 +5,7 @@ public class Animation extends Actor {
     private int framerate;
     private int currentFrame;
     
+    //sets animation loop to the argument
     Animation(int rate, String[] filenames) {
         
         framerate = rate;
@@ -22,6 +23,7 @@ public class Animation extends Actor {
         return framerate;
     }
     
+    //gets the next frame in an animation loop
     public MayflowerImage getNextFrame() {
         
         MayflowerImage currentImage = frames[currentFrame];

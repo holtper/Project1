@@ -1,8 +1,12 @@
+import mayflower.*;
+
 public class Bug extends AnimatedActor {
     
     private Animation flyRight;
     private Animation flyLeft;
     private int counter;
+    private Timer wait;
+    
     public Bug() {
         
         String[] flyFiles = new String[2];
@@ -17,35 +21,51 @@ public class Bug extends AnimatedActor {
         flyLeft.scale(24, 24);
         
         setAnimation(flyRight);
-        counter = 0;
+        counter = Math.random() < 0.5 ? 0 : -1;
+        wait = new Timer((int) (Math.random() * 5000));
     }
     
     public void act() {
         
         super.act();
+        
+        //resets counter
         if (counter >= 100)
             counter = -1;
             
         if (counter < -100)
             counter = 0;
         
-        if (counter >= 0) {
-            setAnimation(flyRight);
-            setLocation(getX() + 2, getY());
-            counter++;
-        }
-        else {
-            setAnimation(flyLeft);
-            setLocation(getX() - 2, getY());
-            counter--;
+        //once wait timer is done, start moving Bug
+        if (wait.isDone()) {
+            wait.reset();
+            if (counter >= 0) {
+                setAnimation(flyRight);
+                setLocation(getX() + 2, getY());
+                counter++;
+            }
+            else {
+                setAnimation(flyLeft);
+                setLocation(getX() - 2, getY());
+                counter--;
+            }
         }
         
+        //checks for collision with Rat
         if (isTouching(Rat.class)) {
             
             Object obj = getOneIntersectingObject(Rat.class);
             Rat r = (Rat) obj;
-            r.setLocation(200, 440);
-            r.decreaseLives(1);
+            
+            //if Rat is above Bug, kill Bug
+            if (r.getY() + 20 < getY())
+                getWorld().removeObject(this);
+                
+            //decrease Rat lives if not
+            else {
+                r.setLocation(150, 440);
+                r.decreaseLives(1);
+            }
         }
     }
 }

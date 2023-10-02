@@ -2,16 +2,10 @@ import mayflower.*;
 
 public class MovableAnimatedActor extends AnimatedActor {
 
-    private Animation walkRight;
-    private Animation walkLeft;
-    private Animation idleRight;
-    private Animation idleLeft;
-    private Animation fallRight;
-    private Animation fallLeft;
-    private Animation jumpRight;
-    private Animation jumpLeft;
-    private String currentAction;
-    private String direction;
+    //declaring all variables
+    private Animation walkRight, walkLeft, idleRight, idleLeft;
+    private Animation climbRight, climbLeft, jumpRight, jumpLeft;
+    private String currentAction, direction;
     
     public MovableAnimatedActor() {
 
@@ -23,8 +17,6 @@ public class MovableAnimatedActor extends AnimatedActor {
         
         super.setAnimation(a);
     }
-    
-    
     
     public void act() {
        
@@ -40,18 +32,26 @@ public class MovableAnimatedActor extends AnimatedActor {
         if (currentAction == (null))
             newAction = "idleRight"; 
             
+        // move up if touching ladder and pressing up
         if(Mayflower.isKeyDown(Keyboard.KEY_UP) && isTouching(Ladder.class)) {
             
             setLocation(x, y - 2);
-            newAction = direction.equals("right") ? "jumpRight" : "jumpLeft";
+            newAction = direction.equals("right") ? "climbRight" : "climbLeft";
         }
         
-        if(Mayflower.isKeyDown(Keyboard.KEY_DOWN) && !isTouching(Ladder.class)) {
+        // move down if touching ladder and pressing down
+        else if(Mayflower.isKeyDown(Keyboard.KEY_DOWN)) {
             
-            setLocation(x, y + 2);
-            newAction = direction.equals("right") ? "jumpRight" : "jumpLeft";
+            setLocation(x, y + 1);
+            
+            if (isTouching(Ladder.class))
+                setLocation(x, y + 1);
+            else
+                setLocation(x, y - 1);
+            newAction = direction.equals("right") ? "climbRight" : "climbLeft";
         }
         
+        //"jumps" is up is pressed and not currently falling
         else if(Mayflower.isKeyPressed(Keyboard.KEY_UP) && !isFalling()) {
             
             setLocation(x, y + 1);
@@ -59,8 +59,11 @@ public class MovableAnimatedActor extends AnimatedActor {
                 setLocation(x, y - 32);
                 newAction = direction.equals("right") ? "jumpRight" : "jumpLeft";
             }
+            else
+            setLocation(x, y - 1);
         }
         
+        //moves right if right is pressed
         else if (Mayflower.isKeyDown(Keyboard.KEY_RIGHT) && x + w < 800) {
             
             newAction = "walkRight";
@@ -69,20 +72,22 @@ public class MovableAnimatedActor extends AnimatedActor {
             
             if (isTouching(Pipe.class))
                 
-                setLocation(x - 1, y);
-
+                setLocation(x - 2, y);
         }
+        
+        // moves left if left is pressed
         else if (Mayflower.isKeyDown(Keyboard.KEY_LEFT) && x > 0) {
             
             newAction = "walkLeft";
             direction = "left";
             setLocation(x - 1, y);
-            
-             if (isTouching(Pipe.class))
+
+            if (isTouching(Pipe.class))
                 
                 setLocation(x + 1, y);
         }
         
+        //sets action to "idle" if nothing else
         else {
             
             
@@ -95,12 +100,19 @@ public class MovableAnimatedActor extends AnimatedActor {
                 newAction = "idleLeft";
         }
 
+        //updates current animation depending on movement
         if (!(newAction == (null)) && !newAction.equals(currentAction)) {
             
-            if (direction.equals("right") && isFalling())
+            if (newAction.equals("climbRight")) 
+                setAnimation(climbRight);
+                
+            else if(newAction.equals("climbLeft"))
+                setAnimation(climbLeft);
+            
+            else if (newAction.equals("jumpRight") || (isFalling() && direction.equals("right")))
                 setAnimation(jumpRight);
                 
-            else if (direction.equals("left") && isFalling())
+            else if (newAction.equals("jumpLeft") || (isFalling() && direction.equals("left")))
                 setAnimation(jumpLeft);
                 
             else if (newAction.equals("idleRight"))
@@ -118,6 +130,8 @@ public class MovableAnimatedActor extends AnimatedActor {
             currentAction = newAction;
         }
     }
+    
+    //various setter methods
     
     public void setWalkRightAnimation(Animation ani) {
         
@@ -139,14 +153,14 @@ public class MovableAnimatedActor extends AnimatedActor {
         idleLeft = ani;
     }
     
-    public void setFallRightAnimation(Animation ani) {
+    public void setClimbRightAnimation(Animation ani) {
         
-        fallRight = ani;
+        climbRight = ani;
     }
     
-     public void setFallLeftAnimation(Animation ani) {
+     public void setClimbLeftAnimation(Animation ani) {
         
-        fallLeft = ani;
+        climbLeft = ani;
     }
     
     public void setJumpRightAnimation(Animation ani){
