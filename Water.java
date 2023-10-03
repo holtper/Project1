@@ -10,18 +10,20 @@ public class Water extends AnimatedActor {
         for (int i = 0; i < files.length; i++) 
             files[i] = new String("sprites/water/water(" + (i) + ").png");
         animation = new Animation(50, files);
-        animation.scale(64, 800);
+        animation.scale(800, 64);
         
         setAnimation(animation);
     }
     
     public void act() {
         
+        super.act();
+        setLocation(getX(), getY() - 1);
         if (isTouching(Rat.class)) {
             
             Object obj = getOneIntersectingObject(Rat.class);
             Rat r = (Rat) obj;
-            r.setLocation(200, 440);
+            r.setLocation(150, 440);
             r.decreaseLives(1);
         }
     }

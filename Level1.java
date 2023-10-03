@@ -26,7 +26,7 @@ public class Level1 extends World {
         showText("Points needed: 5", 10, 60, Color.WHITE);
         rateo = new Rat();
         rateo.setLevel(1);
-        addObject(rateo, 150, 448);
+        addObject(rateo, 150, 440);
         addObject(new Water(), 0, 536);
         //Mayflower.playSound("sounds/level1theme.wav");
     }
@@ -57,6 +57,7 @@ public class Level1 extends World {
             
                 int j = (int) (Math.random() * arr[i].length);
                 if (Math.random() * 10 > 8 && arr[i][j].equals("")) {
+                    //adds 3 ladders in a column
                     addObject(new Ladder(), (j * 32) + (64 * (arr.length - i)), (i * 96) + 100);
                     addObject(new Ladder(), (j * 32) + (64 * (arr.length - i)), (i * 96) + 132);
                     addObject(new Ladder(), (j * 32) + (64 * (arr.length - i)), (i * 96) + 164);
@@ -71,6 +72,7 @@ public class Level1 extends World {
             for (int j = 0; j < arr[i].length; j++) {
                 
                 if (Math.random() * 10 > 6 && arr[i][j].equals("")) {
+                    //adds cheese
                     addObject(new Cheese(), j * 32 + (64 * (arr.length - i)), (i * 96) + 140);
                     arr[i][j] = "cheese";
                 }
